@@ -1,0 +1,22 @@
+if SHIELD_DACTYL_AIR_LEFT
+
+    config ZMK_KEYBOARD_NAME
+        default "Dactyl Air"
+
+    config ZMK_SPLIT_BLE_ROLE_CENTRAL
+        default y
+endif
+
+if SHIELD_DACTYL_AIR_RIGHT
+
+    config ZMK_KEYBOARD_NAME
+        default "Dactyl Air Right"
+
+endif
+
+if SHIELD_DACTYL_AIR_LEFT || SHIELD_DACTYL_AIR_RIGHT
+
+    config ZMK_SPLIT
+        default y
+
+endif

@@ -1,0 +1,83 @@
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/outputs.h>
+
+#define DEFAULT 0
+#define QWERTY  1
+#define MAC     2
+#define LOWER   3
+#define RAISE   4
+#define ADJUST  5
+
+#define HYPER(key) LS(LC(LA(LG(key))))
+#define MEH(key)   LS(LC(LA(key)))
+
+&sl {
+    release-after-ms = <5000>;
+};
+
+
+&kscan0 {
+    debounce-press-ms = <30>;
+    debounce-release-ms = <30>;
+};
+
+/ {
+    keymap {
+        compatible = "zmk,keymap";
+
+        default_layer {
+            bindings = <
+    &kp Q     &kp W    &kp F     &kp P     &kp B                              &kp J     &kp L     &kp U     &kp Y     &kp SEMI
+    &kp A     &kp R    &kp S     &kp T     &kp G                              &kp M     &kp N     &kp E     &kp I     &kp O
+    &kp Z     &kp X    &kp C     &kp D     &kp V                              &kp K     &kp H     &kp COMMA &kp DOT   &kp FSLH
+                    &sl ADJUST TAB  &mt SHIFT SPACE &kp &mt CTRL ESC    &kp DEL   &kp RET   &kp BSPC
+            >;
+        };
+
+        qwerty_layer {
+            bindings = <
+    &kp Q     &kp W    &kp E     &kp R     &kp T                              &kp Y     &kp U     &kp I     &kp O     &kp P   
+    &kp A     &kp S    &kp D     &kp F     &kp G                              &kp H     &kp J     &kp K     &kp L     &kp SEMI
+    &kp Z     &kp X    &kp C     &kp V     &kp B                              &kp N     &kp M     &kp COMMA &kp DOT   &kp FSLH
+                    &sl ADJUST TAB  &mt SHIFT SPACE &kp &mt CTRL ESC    &kp DEL   &kp RET   &kp BSPC
+            >;
+        };
+
+        mac_layer {
+            bindings = <
+    &trans     &trans     &trans     &trans     &trans                     &trans     &trans    &trans    &trans    &trans
+    &trans     &trans     &trans     &trans     &trans                     &trans     &trans    &trans    &trans    &trans
+    &trans     &trans     &trans     &trans     &trans                     &trans     &trans    &trans    &trans    &trans
+                                     &trans     &trans   &trans   &trans   &trans     &trans    
+            >;
+        };
+
+        lower_layer {
+            bindings = <
+    &none     &none    &none      &none     &none                             &none         &kp LC(1)    &kp LC(PG_UP)    &kp LC(PG_DN)     &kp LC(9)  
+    &none     &none    &none      &none     &none                             &kp MEH(N)    &kp MEH(M)   &kp LG(LC(LEFT)) &kp LG(LC(RIGHT)) &kp LG(TAB)
+    &none     &kp C_PP &kp C_PREV &kp C_NEXT                                                &kp C_VOL_DN &kp C_VOL_UP     &kp C_MUTE        &none 
+                                     &trans     &trans   &trans   &trans   &trans     &trans    
+            >;       };
+
+        raise_layer {
+            bindings = <
+    &kp T     &kp Q    &kp W     &kp E     &kp R                           &trans    &trans    &trans    &trans    &trans
+    &kp LSHFT &kp A    &kp S     &kp D     &kp F                           &trans    &trans    &trans    &trans    &trans
+    &trans    &trans   &trans    &trans    &trans                          &trans    &trans    &trans    &trans    &trans
+                                     &trans     &trans   &trans   &trans   &trans     &trans    
+            >;
+        };
+
+        adjust_layer {
+            bindings = <
+    &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4                         &none       &none     &none     &none     &none
+    &out OUT_USB &out OUT_BLE &none        &reset       &tog MAC                             &none       &reset    &none     &none     &none 
+    &none        &bt BT_CLR   &none        &none        &bootloader                          &bootloader &none     &none     &none     &none 
+                                               &none    &none       &none       &none     &none     &none    
+            >;
+        };
+    };
+};
